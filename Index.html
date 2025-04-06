@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Josh Smith Project</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav>
+      <h1 class="zen-dots-regular">The Josh Smith Project</h1>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#maia">Maia</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2 id="hero-title" class="fade-in-text">Welcome to My Portfolio</h2>
+      <button id="launch-game" class="btn-primary">Smash This Button</button>
+
+      <!-- Embedded Game Modal -->
+      <div id="game-modal" class="game-hidden">
+        <div id="scoreboard">
+          <span id="score-tank1">Tank 1: 0</span>
+          <span id="turn-indicator">Tank 1's Turn</span>
+          <span id="score-tank2">Tank 2: 0</span>
+        </div>
+        <div id="victory-display"></div>
+        <canvas id="tankGame" width="800" height="600"></canvas>
+        <button id="close-game">Close Game</button>
+      </div>
+    </div> 
+  </section>
+
+  <!-- Maia Section -->
+  <section class="maia-section">
+    <div class="maia-content">
+      <div class="maia-text">
+        <h1 id="maia">I'd like you to meet Maia</h1>
+        <p>Often referred to as Maia Chan, she is the best girl.</p>
+      </div>
+      <div class="maia-image">
+        <img src="https://i.imgur.com/sad4pVd.jpeg" alt="Maia" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid Layout Section -->
+  <section class="container grid-section">
+    <div class="card">
+      <i class="fas fa-code"></i>
+      <h3 id="projects">Web Development</h3>
+      <p>Web Dev is super fun! I'm having fun making this page!</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-laptop-code"></i>
+      <h3>Software Projects</h3>
+      <p>I have a ton of ideas to make things easier! Stay tuned!</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-gamepad"></i>
+      <h3>Game Development</h3>
+      <p>I would love to make my own games! It's coming!</p>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <p id="contact">
+      © 2025 Josh Smith Project | Follow me:
+      <a href="https://github.com/IttyBittySmitty" target="_blank">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/josh-smith-70a9276a" target="_blank">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </p>
+  </footer>
+
+  <!-- Maia Reveal Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let maiaSection = document.querySelector(".maia-section");
+      function reveal() {
+        let windowHeight = window.innerHeight;
+        let elementTop = maiaSection.getBoundingClientRect().top;
+        let elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          maiaSection.classList.add("visible");
+        }
+      }
+      window.addEventListener("scroll", reveal);
+    });
+  </script>
+
+  <!-- ✅ External Game Script -->
+  <script src="tank-game.js"></script>
+
+</body>
+</html>

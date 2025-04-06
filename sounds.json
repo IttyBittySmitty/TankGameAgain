@@ -1,0 +1,8 @@
+{
+    "fire": "sounds/fire.mp3",
+    "explosion": "sounds/explosion.wav",
+    "groundHit": "sounds/ground_crater.wav",
+    "victory": "sounds/victory_fanfare.wav",
+    "backgroundMusic": "sounds/background.flac"
+  }
+  
