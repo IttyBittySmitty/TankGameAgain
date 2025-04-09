@@ -119,8 +119,6 @@ function updateTankPosition(tank) {
 }
 
 
-
-
 function createTank(x, y, angle, color) {
   const canvas = document.createElement('canvas');
   canvas.width = 40;
@@ -372,4 +370,5 @@ closeBtn.addEventListener('click', () => {
   if (heroTitle && originalHeroTitle) heroTitle.textContent = originalHeroTitle;
   openBtn.style.display = 'inline-block';
 });
+
 
