@@ -119,12 +119,25 @@ function updateTankPosition(tank) {
 }
 
 function limitTankMovement(tank) {
-  if (tank.x < 20) tank.x = 20;
-  if (tank.x > canvas.width - 20) tank.x = canvas.width - 20;
-  if (tank.x >= trenchLeft && tank.x <= trenchRight) {
-    tank.x = currentPlayer === 'tank1' ? trenchLeft - 1 : trenchRight + 1;
+  const halfWidth = 20;
+
+  if (tank.x < halfWidth) {
+    tank.x = halfWidth;
+  } else if (tank.x > canvas.width - halfWidth) {
+    tank.x = canvas.width - halfWidth;
+  } else if (
+    (currentPlayer === 'tank1' && tank.x + halfWidth >= trenchLeft && tank.x - halfWidth <= trenchRight) ||
+    (currentPlayer === 'tank2' && tank.x + halfWidth >= trenchLeft && tank.x - halfWidth <= trenchRight)
+  ) {
+    // Keep the tank just outside of trench depending on direction
+    if (currentPlayer === 'tank1') {
+      tank.x = trenchLeft - halfWidth;
+    } else {
+      tank.x = trenchRight + halfWidth;
+    }
   }
 }
+
 
 function createTank(x, y, angle, color) {
   const canvas = document.createElement('canvas');
