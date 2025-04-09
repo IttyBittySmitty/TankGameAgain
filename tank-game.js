@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 // Constants
 const TANK_MAX_PIXELS = 800;
 const TANK_DESTROY_THRESHOLD = 0.6;
-const WINNING_SCORE = 3;
+const WINNING_SCORE = 2;
 const GRAVITY = 0.5;
 const GROUND_HEIGHT = 150;
 
@@ -396,5 +396,4 @@ closeBtn.addEventListener('click', () => {
   if (heroTitle && originalHeroTitle) heroTitle.textContent = originalHeroTitle;
   openBtn.style.display = 'inline-block';
 });
-
 
