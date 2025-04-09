@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 // Constants
 const TANK_MAX_PIXELS = 800;
 const TANK_DESTROY_THRESHOLD = 0.6;
-const WINNING_SCORE = 3;
+const WINNING_SCORE = 2;
 const GRAVITY = 0.5;
 const GROUND_HEIGHT = 150;
 
@@ -112,47 +112,18 @@ function updateTankPosition(tank) {
     }
   }
   tank.y += GRAVITY;
-}
 
-function updateProjectile() {
-  if (!projectile) return;
-  projectile.x += projectile.vx;
-  projectile.y += projectile.vy;
-  projectile.vy += 0.2;
-
-  const px = projectile.x;
-  const py = projectile.y;
-  const isOut = px < 0 || px > canvas.width || py > canvas.height;
-
-  const hitTank = projectile.from === 'tank1' ? tank2 : tank1;
-  const dx = px - hitTank.x;
-  const dy = py - hitTank.y;
-  const dist = Math.sqrt(dx * dx + dy * dy);
-  const hitTankDirect = dist < 25 && !hitTank.exploded;
-
-  if (hitTankDirect) {
-    applyCraterDamage(hitTank, px, py);
-  }
-
-  if (isOut || isPointOnGround(px, py) || hitTankDirect) {
-    craterGround(px, py);
-    projectile = null;
-    waitingForProjectileToEnd = false;
-    if (!gameOver) {
-      currentPlayer = currentPlayer === 'tank1' ? 'tank2' : 'tank1';
-      updateTurnIndicator();
-    }
+  if (tank.y >= canvas.height - 1 && !tank.exploded) {
+    explodeTank(tank);
   }
 }
 
-function updateTurnIndicator() {
-  const turnEl = document.getElementById('turn-indicator');
-  turnEl.textContent = currentPlayer === 'tank1' ? "Tank 1's Turn" : "Tank 2's Turn";
-}
-
-function updateScoreDisplay() {
-  document.getElementById('score-tank1').textContent = `Tank 1: ${score.tank1}`;
-  document.getElementById('score-tank2').textContent = `Tank 2: ${score.tank2}`;
+function limitTankMovement(tank) {
+  if (tank.x < 20) tank.x = 20;
+  if (tank.x > canvas.width - 20) tank.x = canvas.width - 20;
+  if (tank.x >= trenchLeft && tank.x <= trenchRight) {
+    tank.x = currentPlayer === 'tank1' ? trenchLeft - 1 : trenchRight + 1;
+  }
 }
 
 function createTank(x, y, angle, color) {
@@ -283,6 +254,16 @@ function drawTank(tank) {
   ctx.stroke();
 }
 
+function updateTurnIndicator() {
+  const turnEl = document.getElementById('turn-indicator');
+  turnEl.textContent = currentPlayer === 'tank1' ? "Tank 1's Turn" : "Tank 2's Turn";
+}
+
+function updateScoreDisplay() {
+  document.getElementById('score-tank1').textContent = `Tank 1: ${score.tank1}`;
+  document.getElementById('score-tank2').textContent = `Tank 2: ${score.tank2}`;
+}
+
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGround();
@@ -294,6 +275,8 @@ function gameLoop() {
 
   updateTankPosition(tank1);
   updateTankPosition(tank2);
+  limitTankMovement(tank1);
+  limitTankMovement(tank2);
 
   if (!gameOver && !waitingForProjectileToEnd) {
     if (currentPlayer === 'tank1' && !tank1.exploded) {
