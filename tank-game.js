@@ -297,15 +297,15 @@ function gameLoop() {
 
   if (!gameOver && !waitingForProjectileToEnd) {
     if (currentPlayer === 'tank1' && !tank1.exploded) {
-      if (keys['a']) tank1.x -= 3;
-      if (keys['d']) tank1.x += 3;
+      if (keys['a'] && tank1.x - 20 > 0) tank1.x -= 3;
+      if (keys['d'] && tank1.x + 20 < trenchLeft) tank1.x += 3;
       if (keys['w']) tank1.angle = Math.min(tank1.angle + 1, 90);
       if (keys['s']) tank1.angle = Math.max(tank1.angle - 1, 0);
     }
 
     if (currentPlayer === 'tank2' && !tank2.exploded) {
-      if (keys['arrowleft']) tank2.x -= 3;
-      if (keys['arrowright']) tank2.x += 3;
+      if (keys['arrowleft'] && tank2.x - 20 > trenchRight) tank2.x -= 3;
+      if (keys['arrowright'] && tank2.x + 20 < canvas.width) tank2.x += 3;
       if (keys['arrowup']) tank2.angle = Math.max(tank2.angle - 1, 90);
       if (keys['arrowdown']) tank2.angle = Math.min(tank2.angle + 1, 180);
     }
@@ -396,4 +396,5 @@ closeBtn.addEventListener('click', () => {
   if (heroTitle && originalHeroTitle) heroTitle.textContent = originalHeroTitle;
   openBtn.style.display = 'inline-block';
 });
+
 
