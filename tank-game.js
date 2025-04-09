@@ -62,7 +62,7 @@ function initGround() {
 function drawGround() {
   ctx.drawImage(groundCanvas, 0, 0);
   ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-  ctx.fillRect(trenchLeft, 0, trenchWidth, canvas.height);
+  ctx.fillRect(trenchLeft, canvas.height - GROUND_HEIGHT, trenchWidth, GROUND_HEIGHT);
 }
 
 function craterGround(impactX, impactY, radius = 30) {
