@@ -118,25 +118,7 @@ function updateTankPosition(tank) {
   }
 }
 
-function limitTankMovement(tank) {
-  const halfWidth = 20;
 
-  if (tank.x < halfWidth) {
-    tank.x = halfWidth;
-  } else if (tank.x > canvas.width - halfWidth) {
-    tank.x = canvas.width - halfWidth;
-  } else if (
-    (currentPlayer === 'tank1' && tank.x + halfWidth >= trenchLeft && tank.x - halfWidth <= trenchRight) ||
-    (currentPlayer === 'tank2' && tank.x + halfWidth >= trenchLeft && tank.x - halfWidth <= trenchRight)
-  ) {
-    // Keep the tank just outside of trench depending on direction
-    if (currentPlayer === 'tank1') {
-      tank.x = trenchLeft - halfWidth;
-    } else {
-      tank.x = trenchRight + halfWidth;
-    }
-  }
-}
 
 
 function createTank(x, y, angle, color) {
@@ -288,8 +270,6 @@ function gameLoop() {
 
   updateTankPosition(tank1);
   updateTankPosition(tank2);
-  limitTankMovement(tank1);
-  limitTankMovement(tank2);
 
   if (!gameOver && !waitingForProjectileToEnd) {
     if (currentPlayer === 'tank1' && !tank1.exploded) {
